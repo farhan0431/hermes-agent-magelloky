@@ -14,6 +14,20 @@
 import { backendProfileArg } from './profile-id-guard'
 
 /**
+ * Managed Magelloku routing defaults. The desktop still launches Hermes' normal
+ * backend, so prompt.submit, sessions, tools, and streaming remain authoritative
+ * in Hermes; this is only the provider record consumed by the normal config seam.
+ * The model id is provisional until Magelloku's /v1/models contract is live.
+ */
+export const MAGELLOKU_PROVIDER_CONFIG = {
+  name: 'magelloku',
+  base_url: 'https://api.magelloku.com/v1',
+  api_mode: 'chat_completions',
+  model: 'magelloku-qgis',
+  key_env: 'MAGELLOKU_API_KEY'
+} as const
+
+/**
  * Build the canonical headless backend argv (always `serve`).
  * @param {string} [profile] optional Hermes profile to pin via `--profile`.
  */

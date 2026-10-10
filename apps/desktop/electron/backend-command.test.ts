@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 
 import { test } from 'vitest'
 
-import { dashboardFallbackArgs, serveBackendArgs, sourceDeclaresServe } from './backend-command'
+import { dashboardFallbackArgs, MAGELLOKU_PROVIDER_CONFIG, serveBackendArgs, sourceDeclaresServe } from './backend-command'
 
 test('serveBackendArgs pins a profile when provided', () => {
   assert.deepEqual(serveBackendArgs('worker'), ['--profile', 'worker', 'serve', '--host', '127.0.0.1', '--port', '0'])
@@ -119,4 +119,15 @@ test('serveBackendArgs keeps a valid profile id pinned, normalized like the CLI'
     '0'
   ])
   assert.deepEqual(serveBackendArgs('default'), ['--profile', 'default', 'serve', '--host', '127.0.0.1', '--port', '0'])
+})
+
+
+test('Magelloku managed provider uses the OpenAI-compatible desktop startup contract without a token', () => {
+  assert.deepEqual(MAGELLOKU_PROVIDER_CONFIG, {
+    name: 'magelloku',
+    base_url: 'https://api.magelloku.com/v1',
+    api_mode: 'chat_completions',
+    model: 'magelloku-qgis',
+    key_env: 'MAGELLOKU_API_KEY'
+  })
 })
