@@ -16,9 +16,9 @@ describe('MagellokuRuntime', () => {
     const saveToken = vi.fn()
     const runtime = new MagellokuRuntime({ client: client as never, openExternal, saveToken, pollIntervalMs: 0, sleep: vi.fn() })
 
-    await expect(runtime.signIn()).resolves.toMatchObject({ status: 'signed_in' })
+    await expect(runtime.signIn({ waitForCode: vi.fn().mockResolvedValue('grant-code') })).resolves.toMatchObject({ status: 'signed_in' })
     expect(openExternal).toHaveBeenCalledWith('https://magelloku.com/desktop/authorize')
-    expect(client.exchangeApprovedBrowserGrant).toHaveBeenCalledWith('r1', 's1')
+    expect(client.exchangeApprovedBrowserGrant).toHaveBeenCalledWith('r1', 's1', 'grant-code')
     expect(saveToken).toHaveBeenCalledWith('token-1')
   })
 

@@ -39,16 +39,16 @@ export class MagellokuClient {
     return 'data' in body ? body.data : (body as T)
   }
 
-  startBrowserAuth(input: { name?: string; platform?: string; app?: MagellokuApp } = {}) {
-    return this.request<{ requestId: string; state: string; authorizeUrl: string; expiresAt: string }>('/desktop/auth/requests', { method: 'POST', body: JSON.stringify(input) }, false)
+  startBrowserAuth(input: { name?: string; platform?: string; app?: MagellokuApp; redirectUri?: string } = {}) {
+    return this.request<{ requestId: string; state: string; authorizeUrl: string; expiresAt: string }>('/desktop/auth/requests', { method: 'POST', body: JSON.stringify({ redirectUri: 'bajiki://desktop/auth/callback', ...input }) }, false)
   }
 
   getBrowserAuthStatus(requestId: string, state: string) {
     return this.request<{ status: 'PENDING' | 'APPROVED' | 'CONSUMED' | 'EXPIRED' }>(`/desktop/auth/requests/${encodeURIComponent(requestId)}?state=${encodeURIComponent(state)}`, {}, false)
   }
 
-  exchangeApprovedBrowserGrant(requestId: string, state: string) {
-    return this.request<{ accessToken: string; expiresAt: string; user?: { id: string; name: string; email: string } }>(`/desktop/auth/requests/${encodeURIComponent(requestId)}/poll-exchange`, { method: 'POST', body: JSON.stringify({ state }) }, false).then(result => { this.setAccessToken(result.accessToken); return result })
+  exchangeApprovedBrowserGrant(requestId: string, state: string, code: string) {
+    return this.request<{ accessToken: string; expiresAt: string; user?: { id: string; name: string; email: string } }>(`/desktop/auth/requests/${encodeURIComponent(requestId)}/exchange`, { method: 'POST', body: JSON.stringify({ state, code }) }, false).then(result => { this.setAccessToken(result.accessToken); return result })
   }
 
   getRouting(app: MagellokuApp = 'qgis', tier: MagellokuTier = 'balanced') {

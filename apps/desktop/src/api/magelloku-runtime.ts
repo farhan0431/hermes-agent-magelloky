@@ -38,17 +38,13 @@ export class MagellokuRuntime {
     return this.authState
   }
 
-  async signIn(input: { app?: MagellokuApp; name?: string; platform?: string } = {}) {
-    const auth = await this.client.startBrowserAuth({ app: input.app ?? 'qgis', name: input.name ?? 'Magelloku AI Desktop', platform: input.platform ?? 'desktop' })
+  async signIn(input: { app?: MagellokuApp; name?: string; platform?: string; waitForCode?: (requestId: string, state: string) => Promise<string> } = {}) {
+    const auth = await this.client.startBrowserAuth({ app: input.app ?? 'qgis', name: input.name ?? 'Magelloku AI Desktop', platform: input.platform ?? 'desktop', redirectUri: 'bajiki://desktop/auth/callback' })
     this.authState = { status: 'pending' }
     await this.openExternal?.(auth.authorizeUrl)
-    while (true) {
-      const status = await this.client.getBrowserAuthStatus(auth.requestId, auth.state)
-      if (status.status === 'EXPIRED') throw new Error('Magelloku login request expired.')
-      if (status.status === 'APPROVED' || status.status === 'CONSUMED') break
-      await this.sleep(this.pollIntervalMs)
-    }
-    const grant = await this.client.exchangeApprovedBrowserGrant(auth.requestId, auth.state)
+    const code = await input.waitForCode?.(auth.requestId, auth.state)
+    if (!code) throw new Error('Magelloku browser login did not return an authorization code.')
+    const grant = await this.client.exchangeApprovedBrowserGrant(auth.requestId, auth.state, code)
     await this.saveToken?.(grant.accessToken)
     this.authState = { status: 'signed_in', user: grant.user }
     return this.authState
