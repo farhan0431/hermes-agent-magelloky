@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none" role="img" aria-labelledby="title"><title id="title">Magelloku AI — connected M</title>  <g transform="translate(10 10)">
+    <path d="M 32 153 C 70 177 127 173 157 139 C 181 112 181 72 165 44" stroke="#B9E9D2" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 16 128 L 16 42 C 16 27 25 18 38 18 C 46 18 52 22 58 30 L 80 61 L 102 30 C 108 22 114 18 122 18 C 135 18 144 27 144 42 L 144 128 L 116 128 L 116 64 L 92 97 C 86 105 74 105 68 97 L 44 64 L 44 128 Z" fill="#B9E9D2"/>
+    <path d="M 80 61 L 102 30 C 108 22 114 18 122 18 C 133 18 141 25 143 36 C 136 32 130 35 124 43 L 92 87 C 86 95 78 100 68 97 L 54 78 C 65 85 73 71 80 61 Z" fill="#74D1AA"/>
+    <circle cx="162" cy="37" r="10" fill="#F2F7F3"/>
+    <circle cx="32" cy="153" r="5" fill="#B9E9D2"/>
+  </g></svg>

@@ -16,13 +16,14 @@
 import { trackGatewayEventDisposers } from './events'
 import { createPluginContext, type HermesPlugin } from './plugin'
 import { pluginActive, publishPlugin } from './plugins-store'
-import { watchRuntimePlugins } from './runtime-loader'
-
 const modules = import.meta.glob<{ default: HermesPlugin }>('../plugins/*/plugin.{js,ts,tsx}', { eager: true })
 
+// Magelloku Agentic ships as a focused QGIS workspace. Optional Hermes
+// extensions are intentionally not exposed in this product surface.
+const ENABLED_BUNDLED_PLUGINS = new Set<string>()
+
 // One-shot init guard. Contributions themselves register by id (re-registering
-// is idempotent), but the disk-door watcher setup below (watchRuntimePlugins)
-// must NOT run twice — so discovery is guarded to a single pass, not re-run on
+// is idempotent), so discovery is guarded to a single pass and is not re-run on
 // HMR.
 let loaded = false
 
@@ -35,8 +36,11 @@ export function discoverBundledPlugins(): void {
 
   for (const [path, mod] of Object.entries(modules)) {
     const plugin = mod.default
+    if (!plugin?.id || !ENABLED_BUNDLED_PLUGINS.has(plugin.id)) {
+      continue
+    }
 
-    if (!plugin?.id || typeof plugin.register !== 'function') {
+    if (typeof plugin.register !== 'function') {
       console.warn(`[plugins] ${path} has no valid default HermesPlugin export — skipped`)
 
       continue
@@ -82,7 +86,7 @@ export function discoverBundledPlugins(): void {
     }
   }
 
-  // The SELF-MAINTAINING disk door (fs-watched hot reloads, slow folder
-  // reconciliation) — the runtime loader pipeline's real, shipping consumer.
-  watchRuntimePlugins()
+  // Magelloku is a managed desktop surface: do not expose arbitrary runtime
+  // plugin loading or user-side Hermes extensions.
+  return
 }

@@ -3,25 +3,25 @@ import type { Translations } from './types'
 // The boot screen's copy (including the update-hold screen), composed by en.ts.
 export const enBoot = {
   boot: {
-    ready: 'Hermes Desktop is ready',
-    desktopBootFailedWithMessage: message => `Desktop boot failed: ${message}`,
+    ready: 'Magelloku AI siap digunakan',
+    desktopBootFailedWithMessage: message => `Magelloku AI gagal memulai: ${message}`,
     steps: {
-      connectingGateway: 'Connecting live desktop gateway',
-      loadingSettings: 'Loading Hermes settings',
-      loadingSessions: 'Loading recent sessions',
-      retryingRemoteBackend: 'Reconnecting to the remote Hermes backend…',
-      startingDesktopConnection: 'Starting desktop connection',
-      startingHermesDesktop: 'Starting Hermes Desktop…'
+      connectingGateway: 'Menghubungkan layanan Magelloku AI',
+      loadingSettings: 'Memuat pengaturan Magelloku AI',
+      loadingSessions: 'Memuat aktivitas terbaru',
+      retryingRemoteBackend: 'Menghubungkan ulang layanan Magelloku AI…',
+      startingDesktopConnection: 'Memulai koneksi desktop',
+      startingHermesDesktop: 'Memulai Magelloku AI…'
     },
     errors: {
       backgroundExited:
         'The service that runs your chats closed unexpectedly. Restart it to keep going — your chats and settings are safe.',
-      backgroundExitedDuringStartup: 'Hermes stopped right after it started.',
-      backendStopped: 'Hermes stopped working in the background',
-      restartHermes: 'Restart Hermes',
-      openLogs: 'Open logs',
-      desktopBootFailed: "Hermes couldn't start",
-      gatewayConnectionLost: 'Hermes lost its connection',
+      backgroundExitedDuringStartup: 'Layanan Magelloku AI berhenti sesaat setelah dimulai.',
+      backendStopped: 'Layanan Magelloku AI berhenti di latar belakang',
+      restartHermes: 'Mulai ulang Magelloku AI',
+      openLogs: 'Buka log',
+      desktopBootFailed: 'Magelloku AI gagal dimulai',
+      gatewayConnectionLost: 'Koneksi Magelloku AI terputus',
       gatewayConnectionLostDetail:
         'Still trying to reconnect. You can keep reading and drafting. If this keeps up, reconnect now or check your connection settings.',
       reconnectNow: 'Reconnect now',
@@ -42,9 +42,9 @@ export const enBoot = {
       installMissing: "Part of Hermes' installation is missing. Choose Repair install to put it back."
     },
     failure: {
-      title: "Hermes couldn't start",
+      title: 'Magelloku AI belum siap',
       description:
-        "Hermes' background service didn't come up. Try one of the recovery steps below. Nothing here deletes your chats or settings.",
+        'Layanan Magelloku AI belum berhasil dimulai. Coba salah satu langkah pemulihan berikut. Data dan aktivitas Anda tetap aman.',
       details: 'Details',
       remoteTitle: 'Remote gateway sign-in required',
       remoteDescription:

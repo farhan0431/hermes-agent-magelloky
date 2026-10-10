@@ -9,16 +9,16 @@
 'use strict'
 
 const variants = {
-  '': { display: 'Hermes', kebab: 'hermes', pascal: 'Hermes' },
+  '': { display: 'Magelloku AI', kebab: 'magelloku-ai', pascal: 'MagellokuAI' },
   light: {
     display: 'Hermes Light',
     kebab: 'hermes-light',
     pascal: 'HermesLight'
   },
   bundled: {
-    display: 'Hermes Agent',
-    kebab: 'hermes-bundled',
-    pascal: 'HermesBundled'
+    display: 'Magelloku AI',
+    kebab: 'magelloku-ai',
+    pascal: 'MagellokuAI'
   }
 }
 

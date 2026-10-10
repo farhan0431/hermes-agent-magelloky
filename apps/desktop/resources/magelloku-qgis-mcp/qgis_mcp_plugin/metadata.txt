@@ -1,0 +1,38 @@
+[general]
+name=Magelloku MCP
+qgisMinimumVersion=3.28
+qgisMaximumVersion=4.99
+supportsQt6=True
+description=Connect QGIS to Magelloku and AI agents via Model Context Protocol (MCP)
+about=Socket server plugin that exposes QGIS operations to LLMs through the
+    Model Context Protocol. Enables AI agents (Magelloku, Claude, Cursor, etc.) to directly
+    control QGIS: manage layers, edit features, run processing algorithms, render maps, and more.
+
+    Attribution & Credit:
+    - Original author and creator: Nicolas Karasiak (https://github.com/nkarasiak/qgis-mcp)
+    - Forked and adapted for Maggeloku / Magelloku ecosystem by Farhan.
+
+    Features:
+    - 121 MCP commands for layers, features, processing, rendering, layouts, and PyQGIS validation
+    - Diagnose tool for full stack health checks
+    - Plugin development tools: message log, plugin reload, layer tree
+    - Expression validation, project variables, settings access
+    - Non-blocking TCP socket server with length-prefixed framing
+    - Toolbar button with port configuration dropdown
+
+version=1.0.15
+author=Nicolas Karasiak (original), Farhan (fork)
+email=fhanfarhann@gmail.com, nicart@gmail.com
+tags=magelloku,mcp,ai,claude,llm,automation,socket,remote
+homepage=https://github.com/nkarasiak/qgis-mcp
+tracker=https://github.com/farhan0431/maggeloku-mcp/issues
+repository=https://github.com/farhan0431/maggeloku-mcp
+license=GPLv2+
+category=Plugins
+icon=icons/icon.png
+experimental=False
+deprecated=False
+changelog=0.15.0 : Background processing jobs with no time limit, project checkpoints
+    to undo a run of changes, export_session to replay a session as a script.
+    Fewer silent errors: failed or partial results say why (#52). Inline QML (#42).
+    Earlier releases: https://github.com/nkarasiak/qgis-mcp/releases

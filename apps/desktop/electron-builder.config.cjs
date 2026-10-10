@@ -135,6 +135,14 @@ module.exports = {
     {
       from: 'assets/icon.ico',
       to: 'icon.ico'
+    },
+    {
+      from: 'resources/magelloku-qgis-mcp',
+      to: 'magelloku-qgis-mcp'
+    },
+    {
+      from: 'public/brand',
+      to: 'brand'
     }
   ],
   asar: {
