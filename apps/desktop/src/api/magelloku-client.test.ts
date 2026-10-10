@@ -30,7 +30,7 @@ describe('MagellokuClient', () => {
     )
     const client = new MagellokuClient({ fetchImpl, accessToken: 'desktop-token' })
 
-    await client.respondLlm({ app: 'qgis', tier: 'balanced', messages: [{ role: 'user', content: 'hello' }] })
+    await client.respondLlm({ idempotencyKey: '00000000-0000-4000-8000-000000000001', app: 'qgis', modelTier: 'balanced', messages: [{ role: 'user', content: 'hello' }] })
 
     const [, request] = fetchImpl.mock.calls[0]
     expect(request?.headers).toBeInstanceOf(Headers)
