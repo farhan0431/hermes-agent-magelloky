@@ -22,6 +22,7 @@ import { $freshDraftReady, $gatewayState } from '@/store/session'
 import { ChatView } from '../chat'
 import { ChatSidebar } from '../chat/sidebar'
 import { TerminalPaneChrome } from '../right-sidebar/terminal/chrome'
+import { isManagedRouteAllowed } from '@/lib/managed-policy'
 import { contributedRoutes, NEW_CHAT_ROUTE, ROUTES_AREA, sessionRoute } from '../routes'
 import { useStatusSnapshot } from '../shell/hooks/use-status-snapshot'
 import { useStatusbarItems } from '../shell/hooks/use-statusbar-items'
@@ -186,16 +187,22 @@ export const ChatRoutesSurface = memo(function ChatRoutesSurface({
     <Routes>
       <Route element={chatView} index />
       <Route element={chatView} path=":sessionId" />
-      <Route element={page(<CapabilitiesView setStatusbarItemGroup={setStatusbarItemGroup} />)} path="capabilities" />
-      <Route element={page(<MessagingView setStatusbarItemGroup={setStatusbarItemGroup} />)} path="messaging" />
+      <Route
+        element={isManagedRouteAllowed('/capabilities') ? page(<CapabilitiesView setStatusbarItemGroup={setStatusbarItemGroup} />) : <Navigate replace to={NEW_CHAT_ROUTE} />}
+        path="capabilities"
+      />
+      <Route
+        element={isManagedRouteAllowed('/messaging') ? page(<MessagingView setStatusbarItemGroup={setStatusbarItemGroup} />) : <Navigate replace to={NEW_CHAT_ROUTE} />}
+        path="messaging"
+      />
       <Route element={page(<ArtifactsView setStatusbarItemGroup={setStatusbarItemGroup} />)} path="artifacts" />
-      <Route element={null} path="agents" />
-      <Route element={null} path="command-center" />
-      <Route element={null} path="cron" />
-      <Route element={null} path="profiles" />
-      <Route element={null} path="settings" />
-      <Route element={null} path="starmap" />
-      <Route element={null} path="webhooks" />
+      {['agents', 'command-center', 'cron', 'profiles', 'settings', 'starmap', 'webhooks'].map(path => (
+        <Route
+          element={isManagedRouteAllowed(`/${path}`) ? null : <Navigate replace to={NEW_CHAT_ROUTE} />}
+          key={path}
+          path={path}
+        />
+      ))}
       {/* Registry-contributed pages (core features + plugins) render in the
           workspace pane like any built-in view — behind the same blast wall
           as every other contribution mount. */}
