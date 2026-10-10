@@ -40,7 +40,7 @@ export class MagellokuClient {
   }
 
   startBrowserAuth(input: { name?: string; platform?: string; app?: MagellokuApp; redirectUri?: string } = {}) {
-    return this.request<{ requestId: string; state: string; authorizeUrl: string; expiresAt: string }>('/desktop/auth/requests', { method: 'POST', body: JSON.stringify({ redirectUri: 'bajiki://desktop/auth/callback', ...input }) }, false)
+    return this.request<{ requestId: string; state: string; authorizeUrl: string; expiresAt: string }>('/desktop/auth/requests', { method: 'POST', body: JSON.stringify({ redirectUri: 'magelloku://desktop/auth/callback', ...input }) }, false)
   }
 
   getBrowserAuthStatus(requestId: string, state: string) {

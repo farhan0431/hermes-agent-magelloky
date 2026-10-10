@@ -39,7 +39,7 @@ export class MagellokuRuntime {
   }
 
   async signIn(input: { app?: MagellokuApp; name?: string; platform?: string; waitForCode?: (requestId: string, state: string) => Promise<string> } = {}) {
-    const auth = await this.client.startBrowserAuth({ app: input.app ?? 'qgis', name: input.name ?? 'Magelloku AI Desktop', platform: input.platform ?? 'desktop', redirectUri: 'bajiki://desktop/auth/callback' })
+    const auth = await this.client.startBrowserAuth({ app: input.app ?? 'qgis', name: input.name ?? 'Magelloku AI Desktop', platform: input.platform ?? 'desktop', redirectUri: 'magelloku://desktop/auth/callback' })
     this.authState = { status: 'pending' }
     await this.openExternal?.(auth.authorizeUrl)
     const code = await input.waitForCode?.(auth.requestId, auth.state)

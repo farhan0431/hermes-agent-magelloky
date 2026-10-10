@@ -11,9 +11,9 @@
 const variants = {
   '': { display: 'Magelloku AI', kebab: 'magelloku-ai', pascal: 'MagellokuAI' },
   light: {
-    display: 'Hermes Light',
-    kebab: 'hermes-light',
-    pascal: 'HermesLight'
+    display: 'Magelloku AI',
+    kebab: 'magelloku-ai',
+    pascal: 'MagellokuAI'
   },
   bundled: {
     display: 'Magelloku AI',
@@ -54,7 +54,7 @@ const displayName = buildCommit
 
 const kebabSuffix = buildCommit ? `-${buildCommit}` : canary ? '-canary' : ''
 const pascalSuffix = buildCommit ? `Commit${buildCommit}` : canary ? 'Canary' : ''
-const cliName = `${light ? 'hermes-light' : 'hermes'}${kebabSuffix}`
+const cliName = `magelloku-ai${kebabSuffix}`
 if (store && (canary || buildCommit)) {
   throw new Error('Store packaging is only eligible for stable releases')
 }
