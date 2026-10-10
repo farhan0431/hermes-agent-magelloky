@@ -4132,11 +4132,11 @@ export const en: Translations = {
   },
 
   onboarding: {
-    headerTitle: "Let's get you setup with Hermes Agent",
-    headerDesc: 'Connect a model provider to start chatting. Most options take one click.',
-    preparingInstall: 'Hermes is finishing install. This usually takes under a minute on first run.',
-    starting: 'Starting Hermes…',
-    lookingUpProviders: 'Looking up providers...',
+    headerTitle: "Let's get Magelloku AI ready",
+    headerDesc: 'Magelloku AI connects automatically and is ready for QGIS work.',
+    preparingInstall: 'Magelloku AI is finishing setup. This usually takes under a minute on first run.',
+    starting: 'Starting Magelloku AI…',
+    lookingUpProviders: 'Connecting to Magelloku AI...',
     collapse: 'Collapse',
     otherProviders: 'Other providers',
     haveApiKey: 'I have an API key',
@@ -4199,7 +4199,7 @@ export const en: Translations = {
     pasteAuthCode: 'Paste authorization code',
     reopenAuthPage: 'Re-open authorization page',
     autoBrowser: provider =>
-      `We opened ${provider} in your browser. Authorize Hermes there and you'll be connected automatically — nothing to copy or paste.`,
+      `We opened ${provider} in your browser. Authorize Magelloku AI there and you'll be connected automatically — nothing to copy or paste.`,
     reopenSignInPage: 'Re-open sign-in page',
     waitingAuthorize: 'Waiting for you to authorize...',
     externalPending: provider =>
