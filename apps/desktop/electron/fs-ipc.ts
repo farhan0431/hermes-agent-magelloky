@@ -16,6 +16,7 @@ import {
   reconcileUnifiedDesktopHalves
 } from './desktop-plugins-root'
 import { DESKTOP_PROFILE_NAME_RE } from './desktop-profile'
+import { assertManagedMutationAllowed } from './managed-policy'
 import { readDirForIpc } from './fs-read-dir'
 import { gitRootForIpc } from './git-root'
 
@@ -132,6 +133,7 @@ export function registerFsIpc({
   // update / uninstall through the gateway) so the app-level copy tracks the
   // package without waiting for the next root resolution.
   ipcMain.handle('hermes:fs:reconcileDesktopPlugins', async () => {
+    assertManagedMutationAllowed('hermes:fs:reconcileDesktopPlugins')
     const root = await ensureDir(path.join(hermesHome, DESKTOP_PLUGINS_DIR))
 
     return reconcileUnifiedDesktopHalves(hermesHome, root)
@@ -157,6 +159,7 @@ export function registerFsIpc({
   })
 
   ipcMain.handle('hermes:plugin:installDesktop', async (_event, payload) => {
+    assertManagedMutationAllowed('hermes:plugin:installDesktop')
     const identifier = String(payload?.identifier || payload?.repo || '').trim()
 
     if (!identifier) {
@@ -173,9 +176,10 @@ export function registerFsIpc({
 
   // Uninstall a standalone desktop plugin by FOLDER NAME under the app-level
   // root. The renderer never passes a path; containment is re-checked inside.
-  ipcMain.handle('hermes:plugin:removeDesktop', async (_event, payload) =>
-    removeDesktopPlugin(path.join(hermesHome, DESKTOP_PLUGINS_DIR), payload?.name)
-  )
+  ipcMain.handle('hermes:plugin:removeDesktop', async (_event, payload) => {
+    assertManagedMutationAllowed('hermes:plugin:removeDesktop')
+    return removeDesktopPlugin(path.join(hermesHome, DESKTOP_PLUGINS_DIR), payload?.name)
+  })
 
   // Rename a file/folder in place. The renderer passes the existing path + a new
   // base name; the destination is resolved in the SAME parent dir so a rename can

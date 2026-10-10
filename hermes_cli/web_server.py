@@ -365,6 +365,9 @@ def _get_pty_active_session_files(app: "FastAPI") -> dict[str, Path]:
 
 app = FastAPI(title="Hermes Agent", version=get_version_info().base_version, lifespan=_lifespan)
 
+from hermes_cli.managed_policy import install_managed_policy_middleware  # noqa: E402
+install_managed_policy_middleware(app)
+
 from hermes_cli.dashboard_auth.body_limit import AuthBodyLimitMiddleware  # noqa: E402
 
 # Register first (innermost): auth gates run before this, JSON parsing after it.
